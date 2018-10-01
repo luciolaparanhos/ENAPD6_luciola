@@ -17,9 +17,9 @@ juizes_drogas_CL <- decisoes %>%
   select(juiz,municipio,txt_decisao,data_registro, data_decisao) %>%
   mutate(txt_decisao = tolower(txt_decisao),
          droga = str_detect(txt_decisao,"droga|entorpecente"),
-         tempo = dmy(data_registro) - dmy(data_decisao) %>%
+         tempo = dmy(data_registro) - dmy(data_decisao)) %>%
            filter(droga==T, municipio %in% c("Campinas","Limeira")) %>%
            group_by(juiz)%>%
            summarise(tempo_medio = mean(tempo, na.rm=T))
-         
-         
+juizes_drogas_CL         
+write_rds(juizes_drogas_CL,"C:/Users/aluno/Documents/ENAPD6_luciola/juizes_drogas_CL.rds")
